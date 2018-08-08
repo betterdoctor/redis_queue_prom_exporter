@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/deepthawtz/redis_queue_prom_exporter/exporter"
+	"github.com/betterdoctor/redis_queue_prom_exporter/exporter"
 	"github.com/golang/glog"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/version"
