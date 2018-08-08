@@ -7,10 +7,13 @@ import (
 	"os"
 
 	"github.com/deepthawtz/redis_queue_prom_exporter/exporter"
+	"github.com/golang/glog"
 	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/common/log"
 	"github.com/prometheus/common/version"
 )
+
+// Version gets set in build
+var Version string
 
 func main() {
 	var (
@@ -24,6 +27,7 @@ func main() {
 	flag.Parse()
 
 	if *showVersion {
+		fmt.Println("version:", Version)
 		fmt.Println(version.Print("redis_queue_prom_exporter"))
 		os.Exit(0)
 	}
@@ -43,11 +47,11 @@ func main() {
 		os.Exit(1)
 	}
 
-	log.Infoln("Starting consul_exporter:", version.Info())
-	log.Infoln("Build context:", version.BuildContext())
+	glog.Infoln("Starting consul_exporter:", version.Info())
+	glog.Infoln("Build context:", version.BuildContext())
 	exporter, err := exporter.NewExporter(*redisURI, *queues, *namespace)
 	if err != nil {
-		log.Fatalln(err)
+		glog.Fatalln(err)
 	}
 	prometheus.MustRegister(exporter)
 
@@ -63,6 +67,7 @@ func main() {
 		</body></html>`))
 	})
 
-	log.Infoln("Listening on", *listenAddress)
-	log.Fatal(http.ListenAndServe(*listenAddress, nil))
+	glog.Infoln("Listening on", *listenAddress)
+	glog.Flush()
+	glog.Fatal(http.ListenAndServe(*listenAddress, nil))
 }

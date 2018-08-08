@@ -1,0 +1,25 @@
+project_name: redis_queue_prom_exporter
+release:
+  github:
+    owner: betterdoctor
+    name: redis_queue_prom_exporter
+  name_template: '{{.Tag}}'
+builds:
+- goos:
+  - linux
+  - darwin
+  goarch:
+  - amd64
+  main: .
+  ldflags: -s -w -X github.com/betterdoctor/redis_queue_prom_exporter/Version={{.Tag}}
+  binary: redis_queue_prom_exporter
+dockers:
+  - image: quay.io/betterdoctor/redis_queue_prom_exporter
+    goos: linux
+    goarch: amd64
+    binary: redis_queue_prom_exporter
+archive:
+  name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+  wrap_in_directory: false
+checksum:
+  name_template: '{{ .ProjectName }}_{{ .Version }}_checksums.txt'

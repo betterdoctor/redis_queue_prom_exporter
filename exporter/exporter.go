@@ -9,7 +9,7 @@ import (
 	"github.com/apex/log"
 	"github.com/prometheus/client_golang/prometheus"
 
-	redis "gopkg.in/redis.v3"
+	"github.com/go-redis/redis"
 )
 
 var (
@@ -35,7 +35,7 @@ func NewExporter(uri, queues, namespace string) (*Exporter, error) {
 	db, _ := strconv.Atoi(p[len(p)-1])
 	client := redis.NewClient(&redis.Options{
 		Addr: u.Host,
-		DB:   int64(db),
+		DB:   db,
 	})
 
 	// create metrics with provided namespace

@@ -1,0 +1,14 @@
+package: github.com/deepthawtz/redis_queue_prom_exporter
+import:
+- package: github.com/apex/log
+  version: ~1.0.0
+- package: github.com/go-redis/redis
+  version: ~6.13.2
+- package: github.com/golang/glog
+- package: github.com/prometheus/client_golang
+  version: ~0.9.0-pre1
+  subpackages:
+  - prometheus
+- package: github.com/prometheus/common
+  subpackages:
+  - version
